@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/")
+@RestController
+@RequestMapping("/devices")
 @Slf4j
 public class DeviceController {
 
@@ -17,11 +18,11 @@ public class DeviceController {
 
     @Autowired
     public DeviceController(DeviceRepository deviceRepository) {
-        log.debug("********Service constructor invoked by Spring******");
+        log.debug("{} constructor invoked by Spring", this.getClass().getName());
         this.deviceRepository = deviceRepository;
     }
 
-    @PostMapping("devices")
+    @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void load(@RequestBody Device device) {
         log.info("Post endpoint invoked");
@@ -29,7 +30,7 @@ public class DeviceController {
         deviceRepository.save(device);
     }
 
-    @GetMapping("devices")
+    @GetMapping
     public List<Device> getDevices() {
         log.info("Get endpoint invoked");
 
